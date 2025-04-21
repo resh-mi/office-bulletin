@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: office-bulletin-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: backend }
+  template:
+    metadata:
+      labels: { app: backend }
+    spec:
+      containers:
+      - name: backend
+        image: <YOUR_REGISTRY>/office-bulletin-backend:latest
+        ports: [{ containerPort: 8080 }]
+        env:
+        - name: DB_HOST
+          value: postgres
+        - name: DB_USER
+          value: bulletin
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: password
+        - name: DB_NAME
+          value: bulletin
+        resources:
+          requests:
+            memory: 256Mi
