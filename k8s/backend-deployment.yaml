@@ -2,19 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: office-bulletin-app
+  namespace: office-bulletin
 spec:
   replicas: 1
   selector:
-    matchLabels: { app: backend }
+    matchLabels:
+      app: backend
   template:
     metadata:
-      labels: { app: backend }
+      labels:
+        app: backend
     spec:
       containers:
       - name: backend
-        image: <YOUR_REGISTRY>/office-bulletin-backend:latest
-        ports: [{ containerPort: 8080 }]
+        image: docker.io/resh-mi/office-bulletin-backend:latest
+        ports:
+        - containerPort: 8080
         env:
         - name: DB_HOST
           value: postgres
