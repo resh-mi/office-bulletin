@@ -9,7 +9,7 @@
   <h1>Office Bulletins</h1>
   <ul id="bulletins"></ul>
   <script>
-    fetch('http://backend:8080/bulletins')
+    fetch('/bulletins')
       .then(r => r.json())
       .then(data => {
         const ul = document.getElementById('bulletins');
@@ -18,8 +18,7 @@
           li.textContent = `${b.message} (${new Date(b.created_at).toLocaleString()})`;
           ul.appendChild(li);
         });
-      })
-      .catch(console.error);
+      });
   </script>
 </body>
 </html>
